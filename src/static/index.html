@@ -3,48 +3,164 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore and register for extracurricular activities at Mergington High School."
+    />
     <title>Mergington High School Activities</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <header>
-      <h1>Mergington High School</h1>
-      <h2>Extracurricular Activities</h2>
-    </header>
+    <svg class="branch-art" aria-hidden="true" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <path class="branch-line" d="M-60 740 C170 740 160 560 330 560 S490 720 650 620 S860 400 1030 500 S1240 650 1510 360" />
+      <path class="branch-line branch-line-secondary" d="M200 -40 C200 180 360 180 360 340 S220 500 360 650 S500 760 510 960" />
+      <path class="branch-line branch-line-secondary" d="M880 -40 C880 160 1080 190 1080 330 S920 510 1100 650 S1280 760 1280 960" />
+      <circle class="branch-dot" cx="330" cy="560" r="8" />
+      <circle class="branch-dot" cx="1030" cy="500" r="8" />
+      <circle class="branch-dot" cx="360" cy="340" r="8" />
+      <circle class="branch-dot" cx="1080" cy="330" r="8" />
+    </svg>
 
-    <main>
-      <section id="activities-container">
-        <h3>Available Activities</h3>
-        <div id="activities-list">
-          <!-- Activities will be loaded here -->
-          <p>Loading activities...</p>
+    <div class="page-shell">
+      <header class="masthead">
+        <div class="masthead-copy">
+          <p class="eyebrow">Mergington High School</p>
+          <h1>Find your next thing.</h1>
+          <p class="masthead-description">
+            Make friends, learn something new, and find your place after class.
+          </p>
         </div>
-      </section>
+        <button id="auth-button" class="auth-button" type="button">
+          👤 Teacher sign in
+        </button>
+        <div class="mascot-row" aria-label="Octodex visitors">
+          <img
+            src="https://octodex.github.com/images/Professortocat_v2.png"
+            alt="Professor Octocat"
+          />
+          <img src="https://octodex.github.com/images/labtocat.png" alt="Labtocat" />
+          <img
+            src="https://octodex.github.com/images/daftpunktocat-thomas.gif"
+            alt="Daftpunktocat"
+          />
+        </div>
+      </header>
 
-      <section id="signup-container">
-        <h3>Sign Up for an Activity</h3>
-        <form id="signup-form">
-          <div class="form-group">
-            <label for="email">Student Email:</label>
-            <input type="email" id="email" required placeholder="your-email@mergington.edu" />
+      <main>
+        <section class="activities-section" aria-labelledby="activities-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Explore and get involved</p>
+              <h2 id="activities-title">Activities</h2>
+            </div>
+            <p class="section-note">
+              Students can browse. Teachers can sign in to manage registrations.
+            </p>
           </div>
-          <div class="form-group">
-            <label for="activity">Select Activity:</label>
-            <select id="activity" required>
-              <option value="">-- Select an activity --</option>
-              <!-- Activity options will be loaded here -->
-            </select>
+
+          <div class="activity-toolbar" aria-label="Filter activities">
+            <label class="search-control" for="activity-search">
+              <span>Search</span>
+              <input
+                type="search"
+                id="activity-search"
+                placeholder="Try chess, sports, art…"
+              />
+            </label>
+            <label for="category-filter">
+              <span>Category</span>
+              <select id="category-filter">
+                <option value="">All categories</option>
+              </select>
+            </label>
+            <label for="sort-order">
+              <span>Sort by</span>
+              <select id="sort-order">
+                <option value="name">Name</option>
+                <option value="earliest">Earliest start</option>
+                <option value="latest">Latest start</option>
+              </select>
+            </label>
           </div>
-          <button type="submit">Sign Up</button>
-        </form>
-        <div id="message" class="hidden"></div>
-      </section>
-    </main>
 
-    <footer>
-      <p>&copy; 2026 Mergington High School</p>
-    </footer>
+          <div id="activities-list" class="activities-grid" aria-live="polite">
+            <p class="empty-state">Loading activities…</p>
+          </div>
+        </section>
+      </main>
 
-    <script src="app.js"></script>
+      <footer>
+        <p>Show up curious. Leave with a new skill.</p>
+      </footer>
+    </div>
+
+    <div id="message" class="message hidden" role="status" aria-live="polite"></div>
+
+    <dialog id="login-dialog" class="form-dialog">
+      <form id="login-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Teacher access</p>
+            <h2>Sign in</h2>
+          </div>
+          <button
+            class="dialog-close"
+            type="button"
+            data-close-dialog
+            aria-label="Close sign in"
+          >
+            ×
+          </button>
+        </div>
+        <label for="teacher-username">Username</label>
+        <input id="teacher-username" name="username" autocomplete="username" required />
+        <label for="teacher-password">Password</label>
+        <input
+          id="teacher-password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+        />
+        <p class="dialog-feedback hidden" role="alert"></p>
+        <button class="primary-button dialog-submit" type="submit">Sign in</button>
+      </form>
+    </dialog>
+
+    <dialog id="signup-dialog" class="form-dialog">
+      <form id="signup-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Teacher access</p>
+            <h2>Register a student</h2>
+          </div>
+          <button
+            class="dialog-close"
+            type="button"
+            data-close-dialog
+            aria-label="Close registration"
+          >
+            ×
+          </button>
+        </div>
+        <label for="student-email">Student email</label>
+        <input
+          type="email"
+          id="student-email"
+          name="email"
+          autocomplete="email"
+          placeholder="student@mergington.edu"
+          required
+        />
+        <label for="signup-activity">Activity</label>
+        <select id="signup-activity" name="activity" required></select>
+        <p class="dialog-feedback hidden" role="alert"></p>
+        <button class="primary-button dialog-submit" type="submit">
+          Register student
+        </button>
+      </form>
+    </dialog>
+
+    <script src="/static/app.js" defer></script>
   </body>
 </html>
